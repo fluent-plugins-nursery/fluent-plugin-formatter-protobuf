@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  ruby:
+    image: ruby:2.7.1
+    working_dir: "/opt/fluent-plugin-formatter-protobuf/"
+    volumes:
+      - ".:/opt/fluent-plugin-formatter-protobuf/"
+      - "${PWD}/cache/gem/specs:/root/.local/share/gem/specs"
+      - "${PWD}/cache/gem/ruby/2.7.1:/root/.local/share/gem/ruby/2.7.1"
+      - "${PWD}/cache/bundle/:/usr/local/bundle"
+
+  protoc:
+    image: jaegertracing/protobuf:0.3.1
+    working_dir: "/opt/fluent-plugin-formatter-protobuf/"
+    volumes:
+      - ".:/opt/fluent-plugin-formatter-protobuf/"
+      - "${PWD}/cache/gem/specs:/root/.local/share/gem/specs"
+      - "${PWD}/cache/gem/ruby/2.7.1:/root/.local/share/gem/ruby/2.7.1"
+      - "${PWD}/cache/bundle/:/usr/local/bundle"

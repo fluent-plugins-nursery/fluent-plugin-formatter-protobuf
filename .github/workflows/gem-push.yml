@@ -1,0 +1,19 @@
+name: Publish Package
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.5
+      - uses: actions/setup-node@v2.4.1
+        with:
+          node-version: "16"
+      - uses: ruby/setup-ruby@v1.83.0
+        with:
+          ruby-version: "2.7.1"
