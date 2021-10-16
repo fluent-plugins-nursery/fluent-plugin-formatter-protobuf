@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/raytung/fluent-plugin-formatter-protobuf'
-  spec.metadata['changelog_uri'] = 'https://github.com/raytung/fluent-plugin-formatter-protobuf/blobl/main/CHANGELOG.md'
+  spec.metadata['changelog_uri'] = 'https://github.com/raytung/fluent-plugin-formatter-protobuf/blob/main/CHANGELOG.md'
 
   test_files, files = `git ls-files -z`.split("\x0").partition do |f|
     f.match(%r{^(test|spec|features)/})

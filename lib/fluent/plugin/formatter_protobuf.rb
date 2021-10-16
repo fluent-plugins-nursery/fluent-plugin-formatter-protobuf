@@ -19,7 +19,6 @@ require 'fluent/plugin/formatter'
 
 require 'pathname'
 require 'google/protobuf'
-require 'protocol_buffers'
 
 require 'fluent/env'
 require 'fluent/time'
