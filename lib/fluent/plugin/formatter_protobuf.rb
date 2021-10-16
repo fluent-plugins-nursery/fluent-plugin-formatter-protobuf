@@ -48,6 +48,10 @@ module Fluent
         @protobuf_class = message_lookup.msgclass
       end
 
+      def formatter_type
+        :binary
+      end
+
       def format(_tag, _time, record)
         protobuf_msg = @protobuf_class.new(record)
         @protobuf_class.encode(protobuf_msg)
