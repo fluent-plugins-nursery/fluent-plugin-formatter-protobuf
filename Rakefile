@@ -44,6 +44,11 @@ namespace :lint do
   end
 end
 
+desc 'Building ruby gem'
+task :build do
+  sh 'gem build *.gemspec'
+end
+
 desc 'Listing all tasks'
 task :help do
   sh 'rake --tasks'

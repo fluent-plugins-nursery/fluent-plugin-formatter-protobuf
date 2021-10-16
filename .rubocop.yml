@@ -1,13 +1,16 @@
+require: rubocop-rake
 AllCops:
   NewCops: enable
 Style/StringLiterals:
   Exclude:
-    - 'test/proto/addressbook_pb.rb'
+    - '**/*_pb.rb'
 Style/HashSyntax:
   Exclude:
-    - 'test/proto/addressbook_pb.rb'
+    - '**/*_pb.rb'
 Style/FrozenStringLiteralComment:
   Exclude:
-    - 'test/proto/addressbook_pb.rb'
+    - '**/*_pb.rb'
 Metrics/MethodLength:
   Max: 100
+  Exclude:
+    - '**/*_pb.rb'
