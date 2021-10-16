@@ -6,7 +6,7 @@ require 'fluent/plugin/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'fluent-plugin-formatter-protobuf'
-  spec.version = Fluent::Plugin::ProtobufFormatter::VERSION
+  spec.version = Fluent::Plugin::VERSION
   spec.authors = ['Ray Tung']
   spec.email = ['code@raytung.net']
 
@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 2.2.22'
   spec.add_development_dependency 'rake', '~> 13.0.3'
+  spec.add_development_dependency 'rubocop', '~> 1.22.1'
+  spec.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   spec.add_development_dependency 'test-unit', '~> 3.3.7'
   spec.add_runtime_dependency 'fluentd', ['>= 1.0', '< 2']
   spec.add_runtime_dependency 'google-protobuf', ['~> 3.18']

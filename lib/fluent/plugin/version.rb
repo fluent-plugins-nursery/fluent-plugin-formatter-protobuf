@@ -2,8 +2,6 @@
 
 module Fluent
   module Plugin
-    module ProtobufFormatter
-      VERSION = '0.0.3'
-    end
+    VERSION = '0.0.3'
   end
 end

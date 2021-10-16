@@ -1,0 +1,54 @@
+name: Ruby Gem
+
+on:
+  push:
+
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.7
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: "Unit test"
+        run: "bundle exec rake lint:check"
+
+  test:
+    name: Unit test
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.7
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: "Unit test"
+        run: "bundle exec rake test:unit"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.7
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: "Unit test"
+        run: "bundle exec rake build"
