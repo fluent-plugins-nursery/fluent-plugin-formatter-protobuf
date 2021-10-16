@@ -1,4 +1,4 @@
-name: Ruby Gem
+name: Publish
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
       - name: "Unit test"
         run: "bundle exec rake test:unit"
 
-  build:
+  publish-to-gpr:
     needs:
       - lint
       - test
@@ -66,6 +66,34 @@ jobs:
         env:
           GEM_HOST_API_KEY: "Bearer ${{secrets.GITHUB_TOKEN}}"
           OWNER: ${{ github.repository_owner }}
+
+      - name: Publish to RubyGems
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+          gem build *.gemspec
+          gem push *.gem
+        env:
+          GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"
+
+  publish-to-ruby-gems:
+    needs:
+      - lint
+      - test
+    name: Build + Publish
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby 2.7
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
       - name: Publish to RubyGems
         run: |
