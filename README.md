@@ -1,5 +1,7 @@
 # fluent-plugin-formatter-protobuf
 
+[![Gem Version](https://badge.fury.io/rb/fluent-plugin-formatter-protobuf.svg)](https://badge.fury.io/rb/fluent-plugin-formatter-protobuf)
+
 [Fluentd](https://fluentd.org/) formatter plugin to format messages into Protobuf v3 encoded binary.
 
 ## Installation
