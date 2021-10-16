@@ -8,16 +8,33 @@
 
 ### RubyGems
 
-```
+```shell
 $ gem install fluent-plugin-formatter-protobuf
 ```
 
-### Bundler
+### GitHub RubyGems Registry
+
+```shell
+$ gem install \
+  fluent-plugin-formatter-protobuf \
+  --version "<version>" \
+  --source "https://rubygems.pkg.github.com/raytung"
+```
+
+### Bundler (RubyGems)
 
 Add following line to your Gemfile:
 
 ```ruby
-gem "fluent-plugin-formatter-protobuf"
+gem "fluent-plugin-formatter-protobuf", "<version>"
+```
+
+### Bundler (GitHub RubyGems Registry),
+
+```shell
+source "https://rubygems.pkg.github.com/raytung" do
+  gem "fluent-plugin-formatter-protobuf", "<version>"
+end
 ```
 
 And then execute:
