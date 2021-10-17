@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.description = 'This is a Fluentd formatter plugin designed to convert Protobuf JSON into Protobuf binary'
   spec.homepage = 'https://github.com/raytung/fluent-plugin-formatter-protobuf'
   spec.license = 'Apache-2.0'
-  spec.required_ruby_version = Gem::Requirement.new('>=2.7.1')
+  spec.required_ruby_version = Gem::Requirement.new('>=2.6')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/raytung/fluent-plugin-formatter-protobuf'
@@ -29,10 +29,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 2.2.22'
+  spec.add_development_dependency 'fluent-plugin-kafka', '~> 0.17.2'
   spec.add_development_dependency 'rake', '~> 13.0.3'
   spec.add_development_dependency 'rspec', '~> 3.10.0'
   spec.add_development_dependency 'rubocop', '~> 1.22.1'
   spec.add_development_dependency 'rubocop-rake', '~> 0.6.0'
+  spec.add_development_dependency 'ruby-kafka', '~> 1.4.0'
   spec.add_development_dependency 'test-unit', '~> 3.3.7'
   spec.add_runtime_dependency 'fluentd', ['>= 1.0', '< 2']
   spec.add_runtime_dependency 'google-protobuf', ['~> 3.18']

@@ -12,6 +12,15 @@ namespace :test do
     t.verbose = true
     t.warning = true
   end
+
+  desc 'Spins up dependencies and runs integration test'
+  task :integration do
+    sh %(
+    docker-compose -f ./spec/docker-compose.yaml \\
+       run \\
+        --rm ruby sh -c 'gem install bundler && bundle install && bundle exec rspec'
+    )
+  end
 end
 
 namespace :generate do
