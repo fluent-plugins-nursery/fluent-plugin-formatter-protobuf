@@ -18,7 +18,7 @@ $ gem install fluent-plugin-formatter-protobuf
 $ gem install \
   fluent-plugin-formatter-protobuf \
   --version "<version>" \
-  --source "https://rubygems.pkg.github.com/raytung"
+  --source "https://rubygems.pkg.github.com/fluent-plugins-nursery"
 ```
 
 ### Bundler (RubyGems)
@@ -32,7 +32,7 @@ gem "fluent-plugin-formatter-protobuf", "<version>"
 ### Bundler (GitHub RubyGems Registry),
 
 ```shell
-source "https://rubygems.pkg.github.com/raytung" do
+source "https://rubygems.pkg.github.com/fluent-plugins-nursery" do
   gem "fluent-plugin-formatter-protobuf", "<version>"
 end
 ```
