@@ -33,7 +33,7 @@ module Fluent
       config_param :include_paths, :array, default: []
 
       # Protobuf message name
-      config_param :message_name, :string
+      config_param :class_name, :string
 
       def configure(conf)
         super(conf)
@@ -42,10 +42,10 @@ module Fluent
 
         @include_paths.each { |path| require_proto!(path) } unless @include_paths.empty?
 
-        message_lookup = Google::Protobuf::DescriptorPool.generated_pool.lookup(@message_name)
-        raise Fluent::ConfigError, "message name '#{@message_name}' not found" if message_lookup.nil?
+        class_lookup = Google::Protobuf::DescriptorPool.generated_pool.lookup(@class_name)
+        raise Fluent::ConfigError, "class name '#{@class_name}' not found" if class_lookup.nil?
 
-        @protobuf_class = message_lookup.msgclass
+        @protobuf_class = class_lookup.msgclass
       end
 
       def formatter_type
