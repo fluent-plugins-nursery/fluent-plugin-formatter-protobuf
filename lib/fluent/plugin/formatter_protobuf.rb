@@ -57,22 +57,14 @@ module Fluent
         @protobuf_class.encode(protobuf_msg)
       end
 
-      # @param [string] filename
-      # @return [void]
       def require_proto!(filename)
-        unless filename.end_with?('.rb')
-          raise Fluent::ConfigError, "Unable to load file '#{filename}'. It is not a Ruby file"
-        end
-
-        unless Pathname.new(filename).absolute?
-          raise Fluent::ConfigError, "Unable to load file '#{filename}'. Please provide absolute paths"
-        end
-
-        begin
+        if Pathname.new(filename).absolute?
           require filename
-        rescue LoadError => e
-          raise Fluent::ConfigError, "Unable to load file '#{filename}'. Reason: #{e.inspect}"
+        else
+          require_relative filename
         end
+      rescue LoadError => e
+        raise Fluent::ConfigError, "Unable to load file '#{filename}'. Reason: #{e.inspect}"
       end
     end
   end
