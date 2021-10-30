@@ -75,7 +75,7 @@ $ bundle
 
     <format>
         @type protobuf
-        message_name "Log"
+        class_name "Log"
         include_paths ["/opt/fluent-plugin-formatter-protobuf/log_pb.rb"]
     </format>
 </match>
@@ -83,13 +83,10 @@ $ bundle
 
 ## Configuration
 
-You can generate configuration template:
-
-```
-$ fluent-plugin-config-format formatter formatter-protobuf
-```
-
-You can copy and paste generated documents here.
+|parameter|type|description|default|
+|---|---|---|---|
+|include_paths|array (optional)| Generated Ruby Protobuf class files path |`[]`|
+|class_name|string (required)| Ruby Protobuf class name. Used to encode into Protobuf binary||
 
 ## Copyright
 

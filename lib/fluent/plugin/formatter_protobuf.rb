@@ -29,11 +29,9 @@ module Fluent
     class ProtobufFormatter < Fluent::Plugin::Formatter
       Fluent::Plugin.register_formatter('protobuf', self)
 
-      # Absolute paths to the generated Ruby protobuf files
-      config_param :include_paths, :array, default: []
+      config_param :include_paths, :array, default: [], desc: 'Generated Ruby Protobuf class files path'
 
-      # Protobuf message name
-      config_param :class_name, :string
+      config_param :class_name, :string, desc: 'Ruby Protobuf class name. Used to encode into Protobuf binary'
 
       def configure(conf)
         super(conf)
