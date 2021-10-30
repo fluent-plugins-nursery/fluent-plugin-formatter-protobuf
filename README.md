@@ -43,11 +43,12 @@ And then execute:
 $ bundle
 ```
 
-## Not so quick start
+## Quick start
 
 1. Generate the protobuf ruby methods
    1. e.g `protoc --proto_path=. --ruby_out=. ./log.proto`
-2. Modify the `<format>` section to include `message_name`, which is your Protobuf message name, and `include_paths`, the path where the generated Ruby types are stored
+2. Modify the `<format>` section to include `class_name`, which is your Protobuf message name, and `include_paths`, the path where the generated Ruby types are stored
+   1. Given protobuf class `Your::Protobuf::Class::Name` class should be given as `Your.Protobuf.Class.Name` in `class_name`. The exact name can be found in the generated Ruby files
 
 
 ## Example
