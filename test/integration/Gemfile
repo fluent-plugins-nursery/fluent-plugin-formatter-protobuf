@@ -2,5 +2,5 @@
 
 source 'https://rubygems.org'
 
-gem 'fluentd', '1.14.1'
+gem 'fluentd', '1.14.2'
 gem 'fluent-plugin-formatter-protobuf', '0.0.3'
