@@ -22,6 +22,7 @@ require 'google/protobuf'
 
 require 'fluent/env'
 require 'fluent/time'
+require 'oj'
 
 module Fluent
   module Plugin
@@ -32,6 +33,9 @@ module Fluent
       config_param :include_paths, :array, default: [], desc: 'Generated Ruby Protobuf class files path'
 
       config_param :class_name, :string, desc: 'Ruby Protobuf class name. Used to encode into Protobuf binary'
+
+      config_param :decode_json, :bool, default: false,
+                                        desc: 'Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary' # rubocop:disable Layout/LineLength
 
       def configure(conf)
         super(conf)
@@ -51,7 +55,7 @@ module Fluent
       end
 
       def format(_tag, _time, record)
-        protobuf_msg = @protobuf_class.new(record)
+        protobuf_msg = @decode_json ? @protobuf_class.decode_json(Oj.dump(record)) : @protobuf_class.new(record)
         @protobuf_class.encode(protobuf_msg)
       end
 
