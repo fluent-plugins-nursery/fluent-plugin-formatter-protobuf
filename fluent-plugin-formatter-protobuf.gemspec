@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version = Fluent::Plugin::VERSION
   spec.authors = ['Ray Tung']
   spec.email = ['code@raytung.net']
+  spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.summary = 'Protobuf formatter for Fluentd'
   spec.description = 'This is a Fluentd formatter plugin designed to convert Protobuf JSON into Protobuf binary'
@@ -35,4 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'test-unit', '~> 3.3'
   spec.add_runtime_dependency 'fluentd', ['>= 1.0', '< 2']
   spec.add_runtime_dependency 'google-protobuf', ['~> 3.18']
+  spec.add_runtime_dependency 'oj', '~> 3.13'
 end

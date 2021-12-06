@@ -45,15 +45,35 @@ class ProtobufFormatterTest < Test::Unit::TestCase
     end
   end
 
+  stub_ruby_hash = { people: [{ name: 'Masahiro', id: 1337,
+                                email: 'repeatedly _at_ gmail.com',
+                                last_updated: {
+                                  seconds: 1_638_489_505,
+                                  nanos: 318_000_000
+                                } }] }
   sub_test_case 'format' do
     test 'encodes into Protobuf binary' do
       formatter = create_formatter({ class_name: 'tutorial.AddressBook',
                                      include_paths: VALID_INCLUDE_PATHS_ABSOLUTE })
 
       formatted = formatter.format('some-tag', 1234,
-                                   { people: [{ name: 'Masahiro', id: 1337, email: 'repeatedly _at_ gmail.com' }] })
-      golden_file = File.binread(File.expand_path(File.join(__dir__, '..', 'proto', 'addressbook.bin')))
-      assert_equal(golden_file, formatted)
+                                   { people: [{ name: 'Masahiro', id: 1337, email: 'repeatedly _at_ gmail.com',
+                                                last_updated: { seconds: 1_638_489_505, nanos: 318_000_000 } }] })
+      address_book = Tutorial::AddressBook.new(stub_ruby_hash)
+      assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
+    end
+
+    test 'encodes Protobuf JSON format into Protobuf binary if config_param decode_json is true' do
+      formatter = create_formatter({ class_name: 'tutorial.AddressBook',
+                                     decode_json: true,
+                                     include_paths: VALID_INCLUDE_PATHS_ABSOLUTE })
+
+      formatted = formatter.format('some-tag', 1234,
+                                   { people: [{ name: 'Masahiro', id: 1337, email: 'repeatedly _at_ gmail.com',
+                                                last_updated: '2021-12-02T23:58:25.318Z' }] })
+
+      address_book = Tutorial::AddressBook.new(stub_ruby_hash)
+      assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
     end
   end
 

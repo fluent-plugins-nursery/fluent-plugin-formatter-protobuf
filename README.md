@@ -88,10 +88,11 @@ This plugin only supports Protobuf v3.
 
 ## Configuration
 
-|parameter|type|description|default|
-|---|---|---|---|
-|include_paths|array (optional)| Generated Ruby Protobuf class files path |`[]`|
-|class_name|string (required)| Ruby Protobuf class name. Used to encode into Protobuf binary||
+|parameter| type               | description                                                   | default |
+|---|--------------------|---------------------------------------------------------------|---------|
+|include_paths| array (optional)   | Generated Ruby Protobuf class files path                      | `[]`    |
+|class_name| string (required)  | Ruby Protobuf class name. Used to encode into Protobuf binary ||
+|decode_json| boolean (optional) | Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary                                                              | `false`  |
 
 ## Tips
 
