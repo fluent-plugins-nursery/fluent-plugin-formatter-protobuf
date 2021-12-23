@@ -30,12 +30,30 @@ module Fluent
     class ProtobufFormatter < Fluent::Plugin::Formatter
       Fluent::Plugin.register_formatter('protobuf', self)
 
-      config_param :include_paths, :array, default: [], desc: 'Generated Ruby Protobuf class files path'
+      config_param :class_name,
+                   :string,
+                   desc: 'Ruby Protobuf class name. Used to encode into Protobuf binary'
 
-      config_param :class_name, :string, desc: 'Ruby Protobuf class name. Used to encode into Protobuf binary'
+      config_param :decode_json,
+                   :bool,
+                   default: false,
+                   desc: <<~DESC
+                     Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary'
+                   DESC
 
-      config_param :decode_json, :bool, default: false,
-                                        desc: 'Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary' # rubocop:disable Layout/LineLength
+      config_param :include_paths,
+                   :array,
+                   default: [],
+                   desc: 'Generated Ruby Protobuf class files path'
+
+      config_param :require_method,
+                   :string,
+                   default: 'require',
+                   desc: <<~DESC
+                     Determine how to bring the generated Ruby Protobuf class files into scope. If your generated Ruby Protobuf class files
+                     are provided by a Ruby Gem, you would want to use \'require\'. If you are providing the generated files as files, you
+                     may want to use \'require_relative\''
+                   DESC
 
       def configure(conf)
         super(conf)
@@ -60,13 +78,9 @@ module Fluent
       end
 
       def require_proto!(filename)
-        if Pathname.new(filename).absolute?
-          require filename
-        else
-          require_relative filename
-        end
+        Kernel.method(@require_method.to_sym).call(filename)
       rescue LoadError => e
-        raise Fluent::ConfigError, "Unable to load file '#{filename}'. Reason: #{e.inspect}"
+        raise Fluent::ConfigError, "Unable to load file '#{filename}'. Reason: #{e.message}"
       end
     end
   end

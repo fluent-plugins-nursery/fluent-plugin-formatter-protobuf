@@ -88,11 +88,12 @@ This plugin only supports Protobuf v3.
 
 ## Configuration
 
-|parameter| type               | description                                                   | default |
-|---|--------------------|---------------------------------------------------------------|---------|
-|include_paths| array (optional)   | Generated Ruby Protobuf class files path                      | `[]`    |
-|class_name| string (required)  | Ruby Protobuf class name. Used to encode into Protobuf binary ||
-|decode_json| boolean (optional) | Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary                                                              | `false`  |
+|parameter| type               | description                                                                                                                                                                                                                                                                 | default   |
+|---|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+|class_name| string (required)  | Ruby Protobuf class name. Used to encode into Protobuf binary                                                                                                                                                                                                               ||
+|decode_json| boolean (optional) | Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary                                                                                                                                          | `false`   |
+|include_paths| array (required)   | Generated Ruby Protobuf class files path                                                                                                                                                                                                                                    | `[]`      |
+|require_method| string (optional)  | Determine how to bring the generated Ruby Protobuf class files into scope. If your generated Ruby Protobuf class files are provided by a Ruby Gem, you may want to use 'require'. If you are providing the generated files as files, you may want to use 'require_relative' | `require` |
 
 ## Tips
 
