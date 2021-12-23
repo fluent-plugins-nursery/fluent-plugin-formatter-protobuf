@@ -13,6 +13,7 @@ class ProtobufFormatterTest < Test::Unit::TestCase
   # Relative to the plugin file
   VALID_INCLUDE_PATHS_RELATIVE = '../../../test/proto/addressbook_pb.rb'
 
+  # rubocop:disable Metrics/BlockLength
   sub_test_case 'configure' do
     test 'fail if include_paths is empty' do
       assert_raise(Fluent::ConfigError) do
@@ -34,7 +35,11 @@ class ProtobufFormatterTest < Test::Unit::TestCase
 
     test 'success if given valid relative paths in include paths' do
       assert_nothing_raised do
-        create_driver({ class_name: 'tutorial.AddressBook', include_paths: [VALID_INCLUDE_PATHS_RELATIVE] })
+        create_driver({
+                        class_name: 'tutorial.AddressBook',
+                        include_paths: [VALID_INCLUDE_PATHS_RELATIVE],
+                        require_method: 'require_relative'
+                      })
       end
     end
 
@@ -44,6 +49,7 @@ class ProtobufFormatterTest < Test::Unit::TestCase
       end
     end
   end
+  # rubocop:enable Metrics/BlockLength
 
   stub_ruby_hash = { people: [{ name: 'Masahiro', id: 1337,
                                 email: 'repeatedly _at_ gmail.com',
@@ -51,6 +57,7 @@ class ProtobufFormatterTest < Test::Unit::TestCase
                                   seconds: 1_638_489_505,
                                   nanos: 318_000_000
                                 } }] }
+  # rubocop:disable Metrics/BlockLength
   sub_test_case 'format' do
     test 'encodes into Protobuf binary' do
       formatter = create_formatter({ class_name: 'tutorial.AddressBook',
@@ -75,7 +82,20 @@ class ProtobufFormatterTest < Test::Unit::TestCase
       address_book = Tutorial::AddressBook.new(stub_ruby_hash)
       assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
     end
+
+    test 'encodes Ruby hash into Protobuf binary if generated files are provided by a Gem' do
+      formatter = create_formatter({
+                                     class_name: 'google.protobuf.Duration',
+                                     # Provided by the google-protobuf gem
+                                     include_paths: ['google/protobuf/duration_pb'],
+                                     require_method: 'require'
+                                   })
+      formatted = formatter.format('some-tag', 1234, { seconds: 1, nanos: 340_012 })
+      duration = Google::Protobuf::Duration.new({ seconds: 1, nanos: 340_012 })
+      assert_equal(Google::Protobuf::Duration.encode(duration), formatted)
+    end
   end
+  # rubocop:enable Metrics/BlockLength
 
   private
 
