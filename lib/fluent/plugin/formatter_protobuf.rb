@@ -41,6 +41,19 @@ module Fluent
                      Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary'
                    DESC
 
+      config_param :format_field,
+                   :string,
+                   default: '',
+                   desc: <<~DESC
+                     When defined, the plugin will only serialise the record in the given field rather than the whole record.
+                      This is potentially useful if you intend to use this formatter with the Kafka output plugin
+                      (https://github.com/fluent/fluent-plugin-kafka#output-plugin) for example, where your record contains
+                      a field to determine which Kafka topic to write to, or the Kafka headers to include, but you do not
+                      wish to include those data in the resulting proto3 binary.
+
+                      Defaults to serialising the whole record.
+                   DESC
+
       config_param :include_paths,
                    :array,
                    default: [],
@@ -73,7 +86,13 @@ module Fluent
       end
 
       def format(_tag, _time, record)
-        protobuf_msg = @decode_json ? @protobuf_class.decode_json(Oj.dump(record)) : @protobuf_class.new(record)
+        format_record = @format_field == '' ? record : record[@format_field]
+
+        protobuf_msg = if @decode_json
+                         @protobuf_class.decode_json(Oj.dump(format_record))
+                       else
+                         @protobuf_class.new(format_record)
+                       end
         @protobuf_class.encode(protobuf_msg)
       end
 
