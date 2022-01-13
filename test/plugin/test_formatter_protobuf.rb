@@ -51,21 +51,34 @@ class ProtobufFormatterTest < Test::Unit::TestCase
   end
   # rubocop:enable Metrics/BlockLength
 
-  stub_ruby_hash = { people: [{ name: 'Masahiro', id: 1337,
-                                email: 'repeatedly _at_ gmail.com',
-                                last_updated: {
-                                  seconds: 1_638_489_505,
-                                  nanos: 318_000_000
-                                } }] }
+  stub_ruby_hash = { 'people' => [{ 'name' => 'Masahiro', 'id' => 1337,
+                                    'email' => 'repeatedly _at_ gmail.com',
+                                    'last_updated' => {
+                                      'seconds' => 1_638_489_505,
+                                      'nanos' => 318_000_000
+                                    } }] }
   # rubocop:disable Metrics/BlockLength
   sub_test_case 'format' do
     test 'encodes into Protobuf binary' do
       formatter = create_formatter({ class_name: 'tutorial.AddressBook',
                                      include_paths: VALID_INCLUDE_PATHS_ABSOLUTE })
 
+      formatted = formatter.format('some-tag', 1234, stub_ruby_hash)
+      address_book = Tutorial::AddressBook.new(stub_ruby_hash)
+      assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
+    end
+
+    test 'encodes a particular field instead of the entire record if format_field is defined' do
+      formatter = create_formatter({ class_name: 'tutorial.AddressBook',
+                                     include_paths: VALID_INCLUDE_PATHS_ABSOLUTE,
+                                     format_field: 'data' })
+
       formatted = formatter.format('some-tag', 1234,
-                                   { people: [{ name: 'Masahiro', id: 1337, email: 'repeatedly _at_ gmail.com',
-                                                last_updated: { seconds: 1_638_489_505, nanos: 318_000_000 } }] })
+                                   {
+                                     'topic' => 'some-kafka-topic',
+                                     'headers' => {},
+                                     'data' => stub_ruby_hash
+                                   })
       address_book = Tutorial::AddressBook.new(stub_ruby_hash)
       assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
     end
@@ -76,8 +89,16 @@ class ProtobufFormatterTest < Test::Unit::TestCase
                                      include_paths: VALID_INCLUDE_PATHS_ABSOLUTE })
 
       formatted = formatter.format('some-tag', 1234,
-                                   { people: [{ name: 'Masahiro', id: 1337, email: 'repeatedly _at_ gmail.com',
-                                                last_updated: '2021-12-02T23:58:25.318Z' }] })
+                                   {
+                                     'people' => [
+                                       {
+                                         'name' => 'Masahiro',
+                                         'id' => 1337,
+                                         'email' => 'repeatedly _at_ gmail.com',
+                                         'last_updated' => '2021-12-02T23:58:25.318Z'
+                                       }
+                                     ]
+                                   })
 
       address_book = Tutorial::AddressBook.new(stub_ruby_hash)
       assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
