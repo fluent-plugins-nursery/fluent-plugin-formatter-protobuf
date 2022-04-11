@@ -83,7 +83,7 @@ class ProtobufFormatterTest < Test::Unit::TestCase
       assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
     end
 
-    test 'encodes Protobuf JSON format into Protobuf binary if config_param decode_json is true' do
+    test 'encodes Protobuf JSON format into Protobuf binary if config_param decode_json is true and if incoming JSON contains unknown fields' do
       formatter = create_formatter({ class_name: 'tutorial.AddressBook',
                                      decode_json: true,
                                      include_paths: VALID_INCLUDE_PATHS_ABSOLUTE })
@@ -95,13 +95,36 @@ class ProtobufFormatterTest < Test::Unit::TestCase
                                          'name' => 'Masahiro',
                                          'id' => 1337,
                                          'email' => 'repeatedly _at_ gmail.com',
-                                         'last_updated' => '2021-12-02T23:58:25.318Z'
+                                         'last_updated' => '2021-12-02T23:58:25.318Z',
+                                         'some-unknown-fields' => 'this field is not specified in the .proto message'
                                        }
                                      ]
                                    })
 
       address_book = Tutorial::AddressBook.new(stub_ruby_hash)
       assert_equal(Tutorial::AddressBook.encode(address_book), formatted)
+    end
+
+    test 'throws exception when formatting JSON with unknown fields and ignore_unknown_fields is `false`' do
+      formatter = create_formatter({ class_name: 'tutorial.AddressBook',
+                                     decode_json: true,
+                                     ignore_unknown_fields: false,
+                                     include_paths: VALID_INCLUDE_PATHS_ABSOLUTE })
+
+      assert_raise(Google::Protobuf::ParseError) do
+        formatter.format('some-tag', 1234,
+                         {
+                           'people' => [
+                             {
+                               'name' => 'Masahiro',
+                               'id' => 1337,
+                               'email' => 'repeatedly _at_ gmail.com',
+                               'last_updated' => '2021-12-02T23:58:25.318Z',
+                               'some-unknown-fields' => 'this field is not specified in the .proto message'
+                             }
+                           ]
+                         })
+      end
     end
 
     test 'encodes Ruby hash into Protobuf binary if generated files are provided by a Gem' do
