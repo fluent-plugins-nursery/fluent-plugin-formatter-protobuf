@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/fluent-plugins-nursery/fluent-plugin-formatter-protobuf/compare/v0.3.0...v0.4.0) (2022-04-11)
+
+
+### Features
+
+* Add configuration `ignore_unknown_fields` when decoding JSON ([734c638](https://www.github.com/fluent-plugins-nursery/fluent-plugin-formatter-protobuf/commit/734c638cd2e2405c52def5babbd61fa4d69b8c08))
+
 ## [0.3.0](https://www.github.com/fluent-plugins-nursery/fluent-plugin-formatter-protobuf/compare/v0.2.0...v0.3.0) (2022-01-13)
 
 
