@@ -14,3 +14,7 @@ Metrics/MethodLength:
   Max: 100
   Exclude:
     - '**/*_pb.rb'
+Metrics/ClassLength:
+  Max: 140
+Layout/LineLength:
+  Max: 150

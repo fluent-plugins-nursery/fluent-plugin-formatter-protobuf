@@ -41,6 +41,13 @@ module Fluent
                      Serializes record from canonical proto3 JSON mapping (https://developers.google.com/protocol-buffers/docs/proto3#json) into binary'
                    DESC
 
+      config_param :ignore_unknown_fields,
+                   :bool,
+                   default: true,
+                   desc: <<~DESC
+                     Ignore unknown fields when decoding JSON. This parameter is only used if `decode_json` is `true`
+                   DESC
+
       config_param :format_field,
                    :string,
                    default: '',
@@ -89,7 +96,8 @@ module Fluent
         format_record = @format_field == '' ? record : record[@format_field]
 
         protobuf_msg = if @decode_json
-                         @protobuf_class.decode_json(Oj.dump(format_record))
+                         @protobuf_class.decode_json(Oj.dump(format_record),
+                                                     { ignore_unknown_fields: @ignore_unknown_fields })
                        else
                          @protobuf_class.new(format_record)
                        end
