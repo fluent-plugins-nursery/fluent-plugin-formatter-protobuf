@@ -18,37 +18,54 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: "Unit test"
+      - name: "Linting"
         run: "bundle exec rake lint:check"
 
   test:
-    name: Unit test
+    name: Unit testing with Ruby version ${{ matrix.ruby-version }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
-
+    strategy:
+      matrix:
+        ruby-version:
+          - '3.1'
+          - '3.0'
+          - '2.7'
+          - '2.6'
+          - '2.5'
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby 2.5
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          ruby-version: ${{ matrix.ruby-version }}
       - name: "Unit test"
         run: "bundle exec rake test:unit"
 
   build:
-    name: Build
+    name: Building gem with Ruby version ${{ matrix.ruby-version }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
+    strategy:
+      matrix:
+        ruby-version:
+          - '3.1'
+          - '3.0'
+          - '2.7'
+          - '2.6'
+          - '2.5'
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby 2.5
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: "Unit test"
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: "Building gem"
         run: "bundle exec rake build"
