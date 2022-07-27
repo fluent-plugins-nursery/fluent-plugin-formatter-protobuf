@@ -1,0 +1,35 @@
+{
+    extends: [
+      "config:base",
+      ":semanticCommits",
+      ":semanticCommitTypeAll(chore)",
+      "schedule:monthly"
+    ],
+    labels: [
+      "dependencies"
+    ],
+    vulnerabilityAlerts: {
+      enabled: true,
+      automerge: true,
+    },
+    packageRules: [
+      {
+        matchManagers: [
+          "bundler",
+          "dockerfile",
+          "docker-compose",
+        ],
+        groupName: "dependencies"
+      },
+      {
+          matchManagers: [
+            "ruby-version",
+          ],
+          commitBody: "BREAKING CHANGE: Updating ruby runtime versions",
+          commitMessagePrefix: 'chore(deps)!:',
+          matchUpdateTypes: [
+            "major"
+          ],
+      }
+    ]
+}
