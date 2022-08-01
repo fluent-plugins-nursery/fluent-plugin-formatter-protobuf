@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://www.github.com/fluent-plugins-nursery/fluent-plugin-formatter-protobuf/compare/v0.4.0...v0.5.0) (2022-08-01)
+
+
+### Features
+
+* **deps:** Bump google-protobuf to 3.21 for Ruby 3.1 projects ([b2ea32d](https://www.github.com/fluent-plugins-nursery/fluent-plugin-formatter-protobuf/commit/b2ea32d60a0b4c32d59e295acbf8612fba64d4a7))
+
 ## [0.4.0](https://www.github.com/fluent-plugins-nursery/fluent-plugin-formatter-protobuf/compare/v0.3.0...v0.4.0) (2022-04-11)
 
 
