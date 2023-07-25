@@ -1,13 +1,13 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.2)
     cool.io (1.7.1)
     fluent-plugin-formatter-protobuf (0.4.0)
       fluentd (>= 1.0, < 2)
       google-protobuf (~> 3.18)
       oj (~> 3.13)
-    fluentd (1.15.1)
+    fluentd (1.15.3)
       bundler
       cool.io (>= 1.4.5, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.9.0)
@@ -22,15 +22,15 @@ GEM
     google-protobuf (3.21.7)
     google-protobuf (3.21.7-x86_64-linux)
     http_parser.rb (0.8.0)
-    msgpack (1.5.4)
+    msgpack (1.7.2)
     oj (3.13.19)
-    serverengine (2.3.0)
+    serverengine (2.3.2)
       sigdump (~> 0.2.2)
-    sigdump (0.2.4)
+    sigdump (0.2.5)
     strptime (0.2.5)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2022.1)
+    tzinfo-data (1.2023.3)
       tzinfo (>= 1.0.0)
     webrick (1.7.0)
     yajl-ruby (1.4.3)
@@ -41,7 +41,7 @@ PLATFORMS
 
 DEPENDENCIES
   fluent-plugin-formatter-protobuf (= 0.4.0)
-  fluentd (= 1.15.1)
+  fluentd (= 1.15.3)
 
 BUNDLED WITH
    2.2.29
