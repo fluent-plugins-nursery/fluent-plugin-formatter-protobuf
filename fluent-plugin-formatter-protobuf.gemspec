@@ -35,6 +35,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rake', '~> 0.6'
   spec.add_development_dependency 'test-unit', '~> 3.3'
   spec.add_runtime_dependency 'fluentd', ['>= 1.0', '< 2']
-  spec.add_runtime_dependency 'google-protobuf', ['~> 3.21']
+  spec.add_runtime_dependency 'google-protobuf', '>= 3.21', '< 5.0'
   spec.add_runtime_dependency 'oj', '~> 3.13'
 end
