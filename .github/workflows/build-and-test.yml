@@ -14,12 +14,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Set up Ruby 2.5
+      - name: Set up Ruby
         uses: ruby/setup-ruby@09a7688d3b55cf0e976497ff046b70949eeaccfd # v1.288.0
-      - name: Install bundler explicitly for Ruby 2.5
+        with:
+          ruby-version: 2.7
+      - name: Install gems
         run: |
-          gem install bundler -v 2.3.27
-          bundle _2.3.27_ install
+          bundle install
       - name: "Linting"
         run: "bundle exec rake lint:check"
 
@@ -35,8 +36,6 @@ jobs:
           - '3.1'
           - '3.0'
           - '2.7'
-          - '2.6'
-          - '2.5'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Set up Ruby
@@ -59,8 +58,6 @@ jobs:
           - '3.1'
           - '3.0'
           - '2.7'
-          - '2.6'
-          - '2.5'
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
