@@ -17,10 +17,8 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@09a7688d3b55cf0e976497ff046b70949eeaccfd # v1.288.0
         with:
+          bundler-cache: true
           ruby-version: 2.7
-      - name: Install gems
-        run: |
-          bundle install
       - name: "Linting"
         run: "bundle exec rake lint:check"
 

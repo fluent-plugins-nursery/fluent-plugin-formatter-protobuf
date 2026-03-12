@@ -1,5 +1,10 @@
 inherit_from: .rubocop_todo.yml
 
+# Preserve default Excludes (e.g., vendor/) to prevent linting cached gems.
+inherit_mode:
+  merge:
+    - Exclude
+
 require: rubocop-rake
 AllCops:
   NewCops: enable
