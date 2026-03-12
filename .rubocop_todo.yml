@@ -25,33 +25,6 @@ Gemspec/DevelopmentDependencies:
   Exclude:
     - 'fluent-plugin-formatter-protobuf.gemspec'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'test/proto/addressbook_pb.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLines:
-  Exclude:
-    - 'test/proto/addressbook_pb.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Max, AllowHeredoc, AllowURI, AllowQualifiedName, URISchemes, AllowRBSInlineAnnotation, AllowCopDirectives, AllowedPatterns, SplitStrings.
-# URISchemes: http, https
-Layout/LineLength:
-  Exclude:
-    - 'test/proto/addressbook_pb.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantConstantBase:
-  Exclude:
-    - 'test/integration/log_pb.rb'
-    - 'test/proto/addressbook_pb.rb'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantStringEscape:

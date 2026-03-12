@@ -3,6 +3,15 @@ inherit_from: .rubocop_todo.yml
 require: rubocop-rake
 AllCops:
   NewCops: enable
+Layout/EmptyLineAfterMagicComment:
+  Exclude:
+    - '**/*_pb.rb'
+Layout/EmptyLines:
+  Exclude:
+    - '**/*_pb.rb'
+Style/RedundantConstantBase:
+  Exclude:
+    - '**/*_pb.rb'
 Style/StringLiterals:
   Exclude:
     - '**/*_pb.rb'
@@ -20,3 +29,5 @@ Metrics/ClassLength:
   Max: 140
 Layout/LineLength:
   Max: 150
+  Exclude:
+    - '**/*_pb.rb'
