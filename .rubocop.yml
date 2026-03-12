@@ -5,7 +5,9 @@ inherit_mode:
   merge:
     - Exclude
 
-require: rubocop-rake
+plugins:
+  - rubocop-rake
+
 AllCops:
   NewCops: enable
   Exclude:
