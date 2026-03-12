@@ -1,19 +1,19 @@
-require: rubocop-rake
+inherit_from: .rubocop_todo.yml
+
+# Preserve default Excludes (e.g., vendor/) to prevent linting cached gems.
+inherit_mode:
+  merge:
+    - Exclude
+
+plugins:
+  - rubocop-rake
+
 AllCops:
   NewCops: enable
-Style/StringLiterals:
-  Exclude:
-    - '**/*_pb.rb'
-Style/HashSyntax:
-  Exclude:
-    - '**/*_pb.rb'
-Style/FrozenStringLiteralComment:
   Exclude:
     - '**/*_pb.rb'
 Metrics/MethodLength:
   Max: 100
-  Exclude:
-    - '**/*_pb.rb'
 Metrics/ClassLength:
   Max: 140
 Layout/LineLength:
