@@ -2,9 +2,18 @@ name: Build and test
 
 on:
   push:
-
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 0 1 * *'
 
 jobs:
+  ruby-versions:
+    uses: ruby/actions/.github/workflows/ruby_versions.yml@master
+    with:
+      engine: cruby
+      min_version: 2.7
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -23,47 +32,41 @@ jobs:
         run: "bundle exec rake lint:check"
 
   test:
-    name: Unit testing with Ruby version ${{ matrix.ruby-version }}
+    needs: ruby-versions
+    name: Unit testing with Ruby version ${{ matrix.ruby }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     strategy:
+      fail-fast: false
       matrix:
-        ruby-version:
-          - '4.0'
-          - '3.4'
-          - '3.3'
-          - '3.2'
-          - '3.1'
-          - '3.0'
-          - '2.7'
+        ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
+        exclude:
+          - ruby: head
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Set up Ruby
         uses: ruby/setup-ruby@09a7688d3b55cf0e976497ff046b70949eeaccfd # v1.288.0
         with:
           bundler-cache: true
-          ruby-version: ${{ matrix.ruby-version }}
+          ruby-version: ${{ matrix.ruby }}
       - name: "Unit test"
         run: "bundle exec rake test:unit"
 
   build:
-    name: Building gem with Ruby version ${{ matrix.ruby-version }}
+    needs: ruby-versions
+    name: Building gem with Ruby version ${{ matrix.ruby }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
     strategy:
+      fail-fast: false
       matrix:
-        ruby-version:
-          - '4.0'
-          - '3.4'
-          - '3.3'
-          - '3.2'
-          - '3.1'
-          - '3.0'
-          - '2.7'
+        ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
+        exclude:
+          - ruby: head
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -71,6 +74,6 @@ jobs:
         uses: ruby/setup-ruby@09a7688d3b55cf0e976497ff046b70949eeaccfd # v1.288.0
         with:
           bundler-cache: true
-          ruby-version: ${{ matrix.ruby-version }}
+          ruby-version: ${{ matrix.ruby }}
       - name: "Building gem"
         run: "bundle exec rake build"
