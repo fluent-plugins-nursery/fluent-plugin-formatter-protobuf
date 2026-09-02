@@ -13,7 +13,7 @@ class ProtobufFormatterTest < Test::Unit::TestCase
   # Relative to the plugin file
   VALID_INCLUDE_PATHS_RELATIVE = '../../../test/proto/addressbook_pb.rb'
 
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable-next Metrics/BlockLength
   sub_test_case 'configure' do
     test 'fail if include_paths is empty' do
       assert_raise(Fluent::ConfigError) do
@@ -49,7 +49,6 @@ class ProtobufFormatterTest < Test::Unit::TestCase
       end
     end
   end
-  # rubocop:enable Metrics/BlockLength
 
   stub_ruby_hash = { 'people' => [{ 'name' => 'Masahiro', 'id' => 1337,
                                     'email' => 'repeatedly _at_ gmail.com',
@@ -57,7 +56,7 @@ class ProtobufFormatterTest < Test::Unit::TestCase
                                       'seconds' => 1_638_489_505,
                                       'nanos' => 318_000_000
                                     } }] }
-  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable-next Metrics/BlockLength
   sub_test_case 'format' do
     test 'encodes into Protobuf binary' do
       formatter = create_formatter({ class_name: 'tutorial.AddressBook',
@@ -139,7 +138,6 @@ class ProtobufFormatterTest < Test::Unit::TestCase
       assert_equal(Google::Protobuf::Duration.encode(duration), formatted)
     end
   end
-  # rubocop:enable Metrics/BlockLength
 
   private
 
