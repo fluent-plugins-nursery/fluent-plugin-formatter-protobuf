@@ -13,7 +13,7 @@ jobs:
     uses: ruby/actions/.github/workflows/ruby_versions.yml@master
     with:
       engine: cruby
-      min_version: 2.7
+      min_version: 3.2
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
         uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
         with:
           bundler-cache: true
-          ruby-version: 2.7
+          ruby-version: 3.2
       - name: "Linting"
         run: "bundle exec rake lint:check"
 
