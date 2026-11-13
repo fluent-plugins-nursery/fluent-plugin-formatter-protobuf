@@ -68,7 +68,7 @@ GEM
     json (2.21.2)
     logger (1.7.0)
     metrics (0.15.0)
-    msgpack (1.8.3)
+    msgpack (1.8.7)
     net-http (0.9.1)
       uri (>= 0.11.1)
     oj (3.17.3)
